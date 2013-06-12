@@ -1,6 +1,12 @@
-%header
-  .container
-    %h1
-      %img(src="images/logo.png")
-      Gamebox!
-      %small Game dev for rubyists
+.navbar-fixed-top.navbar
+  .navbar-inner
+    .container.pull-left
+      .span4 &nbsp;
+      %h2
+        %a.pull-left(href='/')
+          %img(src="images/logo.png")
+          %span(style="color: #DDD;") Gamebox
+          %small game dev for rubyists
+
+        %a.pull-right(title="Gamebox on Github" href="https://github.com/shawn42/gamebox")
+          %img(src="/images/octocat.png" width=80 height=80)
