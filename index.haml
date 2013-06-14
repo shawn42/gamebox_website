@@ -8,29 +8,210 @@ layout: default
   This documentation is horribly incomplete.
 
 .tab-content
+
   #about.tab-pane.active
-    %h3 Purpose
+    :markdown
+      ### Purpose
 
-    %p Gamebox was designed to spring board game development. It allows the developer to define business rules about a game very quickly without having to worry about resource loading, sound/music management, creating windows, or messing with viewports. Gamebox allows you to define a game's business rules within minutes, using the metaphor of a 5th grade play.
-    %p The driving idea behind Gamebox is to provide the ability to have as many of the basic common pieces of a 2D game at the developers disposal from the beginning.
+      Gamebox was designed to spring board game development. It allows the developer to define business rules about a game very quickly without having to worry about resource loading, sound/music management, creating windows, or messing with viewports. Gamebox allows you to define a game's business rules within minutes, using the metaphor of a 5th grade play.
 
-    %h3 Alien Actor from OMG Aliens
+      [GRAPHIC: illustration of kids in costumes on a stage]
 
-    %h3 License
+      The driving idea behind Gamebox is to provide the ability to have as many of the basic common pieces of a 2D game at the developers disposal from the beginning.
 
-    %p The MIT License (MIT)
-    %p Copyright &copy; 2013 Shawn Anderson
-    %p Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-    %p The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-    %p THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+      ### Snippet of awesomeness
 
-  #core.tab-pane
-    %h3 Core
+      ### Screenshot ?
 
-    %p Info about core Gamebox
+      ### Games made with Gamebox ?
+
+      ### License
+
+      The MIT License (MIT)
+
+      Copyright &copy; 2013 Shawn Anderson
+
+      Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+      The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+  #overview.tab-pane
+    :markdown
+      ### Overview
+
+      #### Installation
+
+      * `gem install gamebox`
+      * `git clone git://github.com/shawn42/gamebox.git && cd gamebox && bundle && rake install`
+
+      #### Game Creation
+
+      To create a new Gamebox project run:
+
+          $ gamebox zapper
+
+      To run your game:
+
+          $ cd zapper
+          $ bundle
+          $ rake
+
 
   #stages.tab-pane
-    %h3 Stages
+    :markdown
+      ### Stages
 
-    %p Info about stages goes here..
+      - what are they
+          - The place where actors interact and perform
+          - different gameplay types / modes
 
+      What is a stage?
+
+      - Creates actors
+      - Defines a gameplay mode
+        - Multiple "maps" or "levels" might be the same stage.
+
+        [GRAPHIC: Screenshots of a main menu, a few gameplay levels, and a credits screen. Screenshots grouped into sections for what stage they are (main_menu, gameplay, credits)]
+
+      - Examples:
+        - Main menu
+        - Overworld
+        - Dungeon
+        - Credits
+
+      #### Defining a stage
+
+      - curtain\_up / curtain\_down
+      - pausing
+      - backstage
+
+
+  #actors.tab-pane
+    :markdown
+      ### Actors
+
+      #### What they are
+
+      [GRAPHIC: An actor contains multiple attributes and multiple behaviors]
+
+      Actors can be things that you see on the screen:
+
+      - The player space ship
+      - An alien
+      - A bullet
+      - The background
+      - The score on the screen
+
+      [GRAPHIC: Screenshot with different actors circled and labelled]
+
+      Actors can also be hidden things that interact with other actors.
+
+      An actor is made up of two kinds of things: behaviors, and observable attributes.
+
+      ##### Behaviors
+      - What are behaviors?
+
+      ##### Observable Attributes
+      - What are observable attributes?
+
+      #### Defining an actor type
+
+      #### Adding actors to the stage
+
+      To get an actor on the stage, use the `create_actor` method on stage. This can be done directly from a stage or from a behavior that has required stage via `requires :stage`.
+
+
+  #actorviews.tab-pane
+    :markdown
+      ### Actor Views
+
+      - rendering overview
+      - layers & parallax
+      - defining actor views
+      - setting view on an actor (non magic name)
+      - custom renderer (here, stages, or advanced)
+
+      Actor views are the mechanism for drawing an actor in Gamebox. When an actor is created, Gamebox will see if there is a matching actor view by name. It will register the view to be drawn by the renderer. The draw callback is called with the rendering target, the x and y offsets based on the viewport, and the z layer to be used for drawing this actor (see the section on parallax layers for more on z layers).
+
+          define_actor_view :label_view do
+            draw do |target, x_off, y_off, z|
+              target.print actor.text, actor.x, actor.y, z, actor.font_style
+            end
+          end
+
+
+  #behaviors.tab-pane
+    :markdown
+      ### Behaviors
+
+      - what are they
+      - how to define them
+      - how to inject dependencies with `requires`
+
+      Behaviors are what bring life to actors.  They interact interact with the actor's internal data, input, audio, etc.
+
+      Examples:
+
+
+  #input.tab-pane
+    :markdown
+      ### Input & Updates
+
+      - input manager
+      - director for updates
+
+      Input comes from the InputManager. The stage has direct access via the `input_manager` method. Behaviors can request that they get the `input_manager` via `requires :input_manager`. The preferred way of getting input to your actors is via the actor's `input` method. It returns an InputMapper that can be built with a hash of events. Behaviors then subscribe for those events from the actor's input, or ask for it during updates.
+
+          actor.input.map_input '+space' => :shoot,
+                                '+w' => :jump,
+                                '+a' => :walk_left
+                                '+s' => :duck
+                                '+d' => :walk_right
+
+          actor.input.when :shoot do
+            # shoot code
+          end
+
+          # or
+          if actor.input.walk_left?
+            # walk left
+          end
+
+
+  #audio.tab-pane
+    :markdown
+      ### Sound &amp; Music
+
+      SoundManager handles the autoloading of sounds from `data/sounds` and `data/music`. The stage has direct access via `sound_manager`. To allow an actor to emit sounds or music, give them the `audible` behavior.  See Reactions below for usage from actors.
+
+          # music
+          sound_manager.play_music :overworld
+
+          # sounds
+          sound_manager.play_sound :death
+
+
+  #testing.tab-pane
+    :markdown
+      ### Testing
+
+      - unit
+          - actors
+          - behaviors
+      - acceptance
+          - helpers
+          - examples
+
+
+  #advanced.tab-pane
+    :markdown
+      ### Advanced
+
+      - advanced viewport stuff
+      - auto reloading
+      - debug mode
+      - remote pry
+      - conject?
