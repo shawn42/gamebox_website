@@ -6,11 +6,43 @@ Gamebox was designed to spring board game development. It allows the developer t
 
 The driving idea behind Gamebox is to provide the ability to have as many of the basic common pieces of a 2D game at the developers disposal from the beginning.
 
-### Snippet of awesomeness
+### Example
+{% highlight ruby %}
 
-### Screenshot ?
+    // sample of defining the player's behaviors
+    define_actor :player do
+      has_behaviors do
+        positioned
+        audible
+    
+        grounded
+        looker
+    
+        mover
+        gibify
+        slicer
+        shooter recharge_time: 4_000, shot_power: 15, kickback: 1.4
+        bomber kickback: 1.6
+    
+        die_by_sword
+        die_by_bomb
+        blasted_by_bomb
+        disoriented_by_bombs
+        die_by_bullet
+        shielded
+    
+        pulled_by_black_hole
+    
+        jump max_power: 80, min_power: 20
+      end
+    end
+{% endhighlight %}
 
-### Games made with Gamebox ?
+### Games made with Gamebox
+ * [Killbox](https://github.com/shawn42/killbox) - Local multiplayer gravity deathmatch.
+  * [Lonely Shepherd](http://www.ludumdare.com/compo/ludum-dare-22/?action=preview&uid=571) - Ludum Dare 22 entry.
+  * [Seed Life](http://www.ludumdare.com/compo/ludum-dare-26/?action=preview&uid=571) - Ludum Dare 26 entry
+  * [OMG Aliens](https://github.com/shawn42/omg_aliens) - Space invaders clone.
 
 ### License
 
