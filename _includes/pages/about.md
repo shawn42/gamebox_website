@@ -6,10 +6,9 @@ Gamebox was designed to spring board game development. It allows the developer t
 
 The driving idea behind Gamebox is to provide the ability to have as many of the basic common pieces of a 2D game at the developers disposal from the beginning.
 
-### Example
 {% highlight ruby %}
 
-    // sample of defining the player's behaviors
+    # sample of defining the player's behaviors
     define_actor :player do
       has_behaviors do
         positioned
