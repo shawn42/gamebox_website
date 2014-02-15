@@ -1,5 +1,5 @@
 pygments: true
-excludes: ['Gemfile']
+exclude: [Gemfile, Gemfile.lock, Rakefile, tags]
 sass:
   syntax: scss        # scss|sass
   style:  compressed  # nested|expanded|compact|compressed
