@@ -2,8 +2,16 @@
 
 #### Installation
 
-* `gem install gamebox`
-* `git clone git://github.com/shawn42/gamebox.git && cd gamebox && bundle && rake install`
+Rubygems:
+
+    $ gem install gamebox
+
+From source:
+
+    $ git clone git://github.com/shawn42/gamebox.git
+    $ cd gamebox
+    $ bundle install
+    $ rake install
 
 #### Game Creation
 
@@ -15,4 +23,4 @@ To run your game:
 
     $ cd zapper
     $ bundle
-    $ rake
+    $ bundle exec rake
