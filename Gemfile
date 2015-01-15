@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-gem 'github-pages'
+gem 'github-pages', '15'
 
 gem 'jekyll-haml'
 gem 'jekyll-sass'
