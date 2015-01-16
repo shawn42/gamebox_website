@@ -1,4 +1,4 @@
-pygments: true
+highlighter: pygments
 exclude: [Gemfile, Gemfile.lock, Rakefile, tags]
 sass:
   syntax: scss        # scss|sass
