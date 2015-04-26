@@ -17,7 +17,7 @@ From source:
 
 To create a new Gamebox project run:
 
-    $ gamebox zapper
+    $ gamebox new zapper
 
 To run your game:
 
